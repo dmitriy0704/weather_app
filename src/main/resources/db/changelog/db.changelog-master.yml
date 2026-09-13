@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: create-user-table
+      id: create-weather-table
       author: Dmitriy Folomkin
       changes:
         - createTable:
@@ -38,7 +38,7 @@ databaseChangeLog:
                     nullable: false
 
   - changeSet:
-      id: insert-default-roles
+      id: insert-default-data
       author: Dmitriy Folomkin
       changes:
         - insert:
@@ -67,3 +67,27 @@ databaseChangeLog:
               - column:
                   name: description
                   value: Partly Cloudy
+  - changeSet:
+      id: add-index-by-city
+      author: Dmitriy Folomkin
+      changes:
+        - createIndex:
+            indexName: idx-city
+            tableName: weather
+            columns:
+              - column:
+                  name: city
+  - changeSet:
+      id: add-column-humidity
+      author: Dmitriy Folomkin
+      changes:
+        - addColumn:
+            tableName: weather
+            columns:
+              - column:
+                  name: humidity
+                  type: VARCHAR(255)
+      rollback:
+        - dropColumn:
+            tableName: weather
+            columnName: humidity
