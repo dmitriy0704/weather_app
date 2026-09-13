@@ -1,0 +1,69 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-user-table
+      author: Dmitriy Folomkin
+      changes:
+        - createTable:
+            tableName: weather
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: city
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+                    unique: false
+              - column:
+                  name: temperature
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: true
+                    unique: false
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: timestamp
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: insert-default-roles
+      author: Dmitriy Folomkin
+      changes:
+        - insert:
+            tableName: weather
+            columns:
+              - column:
+                  name: city
+                  value: New York
+              - column:
+                  name: temperature
+                  value: 22 C
+              - column:
+                  name: description
+                  value: Sunny
+
+
+        - insert:
+            tableName: weather
+            columns:
+              - column:
+                  name: city
+                  value: Los Angeles
+              - column:
+                  name: temperature
+                  value: 25 C
+              - column:
+                  name: description
+                  value: Partly Cloudy
